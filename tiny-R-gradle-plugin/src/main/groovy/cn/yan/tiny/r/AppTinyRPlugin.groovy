@@ -60,7 +60,9 @@ class AppTinyRPlugin implements Plugin<Project> {
     private void androidVariantRun(Project project, BaseExtension android, boolean debug) {
         android.applicationVariants.all { ApkVariant variant ->
             variant.outputs.each { BaseVariantOutput output ->
-                def taskName = "transformClassesAndResourcesWithProguardFor${variant.name.capitalize()}"
+                def taskName = "transformClassesWithDexForDebugAndroidTest${variant.name.capitalize()}"
+                //transformClassesWithDexForDebugAndroidTest
+                //transformClassesAndResourcesWithProguardFor
                 def dexTask = project.tasks.findByName(taskName)
                 if (!dexTask) {
                     return

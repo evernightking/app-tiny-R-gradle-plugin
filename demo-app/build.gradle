@@ -34,40 +34,39 @@ dependencies {
     implementation project(':demo-reslib')
 }
 
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//    }
+//
+//    dependencies {
+//        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
+//    }
+//}
 
+//if (project.properties.usePlugin == 'true') {
 buildscript {
     repositories {
-        mavenCentral()
+        maven {
+            if (project.properties.useLocal == 'true') {
+                url uri('../repo')
+            } else {
+                url 'https://jitpack.io'
+            }
+        }
     }
 
     dependencies {
-        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.2'
+        classpath 'com.github.yanbober:app-tiny-R-gradle-plugin:1.0.0'
     }
 }
 
-if (project.properties.usePlugin == 'true') {
-    buildscript {
-        repositories {
-            maven {
-                if (project.properties.useLocal == 'true') {
-                    url uri('../repo')
-                } else {
-                    url 'https://jitpack.io'
-                }
-            }
-        }
+apply plugin: 'appTinyR'
 
-        dependencies {
-            classpath 'com.github.yanbober:app-tiny-R-gradle-plugin:1.0.0'
-        }
-    }
-
-    apply plugin: 'appTinyR'
-
-    appTinyR {
-        enabled true
-        debug true
-    }
+appTinyR {
+    enabled true
+    debug true
 }
+//}
 
-apply plugin: 'com.getkeepsafe.dexcount'
+//apply plugin: 'com.getkeepsafe.dexcount'
